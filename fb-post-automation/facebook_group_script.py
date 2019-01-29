@@ -18,7 +18,7 @@ def driver_initialize(url):
     """
     options = webdriver.FirefoxOptions()
     # options.add_argument('--headless')
-    options.set_preference("dom.webnotifications.enabled", False)
+    options.set_preference('dom.webnotifications.enabled', False)
     driver = webdriver.Firefox(options=options)
     driver.get(url)
     return driver
@@ -32,9 +32,9 @@ def login_fb(driver, user, password):
     :param user: Facebook username
     :param password: Facebook password
     """
-    elem = driver.find_element_by_id("email")
+    elem = driver.find_element_by_id('email')
     elem.send_keys(user)
-    elem = driver.find_element_by_id("pass")
+    elem = driver.find_element_by_id('pass')
     elem.send_keys(password)
     c = driver.find_element_by_id('loginbutton')
     c.click()
@@ -49,20 +49,20 @@ def post_fb_group(message, group_links):
     """
     user = os.environ['FB_USR']
     password = os.environ['FB_PWD']
-    driver = driver_initialize("https://www.facebook.com/")
+    driver = driver_initialize('https://www.facebook.com/')
     login_fb(driver, user, password)
     for group in group_links:
         # Go to the Facebook Group
         driver.get(group)
-        xpath = "//*[@name='xhpc_message_text']"
+        xpath = '//*[@name="xhpc_message_text"]'
         WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
         post_box = driver.find_element_by_xpath(xpath)
         # Enter the text we want to post to Facebook
         post_box.send_keys(message)
-        sleep(15)
+        sleep(10)
         # Get the 'Post' button and click on it
-        submit_button_xpath = "//*[@data-testid='react-composer-post-button']"
+        submit_button_xpath = '//*[@data-testid="react-composer-post-button"]'
         WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.XPATH, submit_button_xpath)))
         post_button = driver.find_element_by_xpath(submit_button_xpath)

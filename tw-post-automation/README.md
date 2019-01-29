@@ -1,6 +1,6 @@
-Selenium Facebook Group Poster
+Selenium Twitter Poster
 ===================
-**A Selenium Script to post text on the Facebook Groups you are member.**
+**A Selenium Script to post text on your twitter account.**
 
 Setup
 ----------
@@ -36,21 +36,20 @@ $ export PATH=$PATH:/path/to/gechodriver
 Configure the script and enjoy!
 ----------
 
-You need to pass your Facebook user and password as environments variables:
+You need to pass your Twitter user and password as environments variables:
 ``` shell
-$ export FB_USR="username@gmail.com"
-$ export FB_PWD="password"
+$ export TW_USR="username@gmail.com"
+$ export TW_PWD="password"
 ```
 
-In this method of the script you need to edit the message you want to post and the links of the Facebook Groups you are member of:
+In this method of the script you need to edit the message you want to post:
 ``` shell 
 if __name__ == '__main__':
-    messagge = 'This is a message to post in a group'
-    group_links = ['https://www.facebook.com/groups/pythonco/']
-    post_fb_group(messagge, group_links)
+    messagge = 'This is a message to post in twitter'
+    post_twitter(messagge)
  ```
 
  Run the script
 ``` shell
-$ python3 facebook_group_script.py
+$ python3 twitter_post_script.py
 ```
