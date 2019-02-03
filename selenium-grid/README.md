@@ -33,7 +33,7 @@ $ export PATH=$PATH:/path/to/gechodriver
 ```
  - Download [Selenium Standalone Server](https://docs.seleniumhq.org/download/) 
 
- - Instal [Java](https://java.com/en/download/help/linux_x64_install.xml)
+ - Install [Java](https://java.com/en/download/help/linux_x64_install.xml)
 
 Configure the script and enjoy!
 ----------
@@ -44,7 +44,7 @@ $ java -jar selenium-server-standalone-<your-version>.jar -role hub
 ```
  - Configure Grid Nodes
 ``` shell
-$ java -jar selenium-server-standalone-<your-version>.jar -host localhost -port 5555 -role node -hub http://localhost:4444/grid/register -browser browserName=firefox,platform=LINUX
+$ java -jar selenium-server-standalone-<your-version>.jar -host localhost -port 5555 -role node -hub http://localhost:4444/grid/register -browser browserName=firefox,platform=LINUX,maxInstances=5 -browser browserName=chrome,platform=LINUX,maxInstances=5
 ```
 If you want more than one node in the same machine, just run the command again with some other port that is not use.
 
@@ -57,9 +57,10 @@ driver = webdriver.Remote(
     	  command_executor='http://localhost:4444/wd/hub',
           desired_capabilities=DESIRED_CAPABILITIES)
  ```
- Run the script
+
+Run the script
 ``` python
 $ python3 node1_script.py
 ```
 
-More info [Selenium wiki](https://github.com/SeleniumHQ/selenium/wiki/Grid2#configuring-the-nodes-by-json)
+More info [Selenium wiki](https://github.com/SeleniumHQ/selenium/wiki/Grid2)
