@@ -52,15 +52,17 @@ Go to your browser and type “http://localhost:4444/grid/console” to see Sele
 
  - Configure the driver to connect remotely on your script
 ``` python 
-DESIRED_CAPABILITIES = {'browserName': 'firefox'}
-driver = webdriver.Remote(
-    	  command_executor='http://localhost:4444/wd/hub',
-          desired_capabilities=DESIRED_CAPABILITIES)
+desired_caps = {}
+desired_caps['platform'] = self.PLATFORM
+desired_caps['browserName'] = self.BROWSER
+self.driver = webdriver.Remote(
+    command_executor='http://localhost:4444/wd/hub',
+    desired_capabilities=desired_caps)
  ```
 
-Run the script
-``` python
-$ python3 node1_script.py
+Run the script passing arguments platform and browser
+``` shell
+$ python3 -W ignore node_script.py LINUX chrome
 ```
 
 More info [Selenium wiki](https://github.com/SeleniumHQ/selenium/wiki/Grid2)

@@ -1,19 +1,22 @@
+import sys
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-DESIRED_CAPABILITIES = {'browserName': 'chrome'}
-
 
 class SearchVersion(unittest.TestCase):
+    PLATFORM = 'LINUX'
+    BROWSER = 'firefox'
 
     def setUp(self):
+        desired_caps = {}
+        desired_caps['platform'] = self.PLATFORM
+        desired_caps['browserName'] = self.BROWSER
         self.driver = webdriver.Remote(
-        	command_executor='http://localhost:4444/wd/hub',
-        	desired_capabilities=DESIRED_CAPABILITIES)
-
+            command_executor='http://localhost:4444/wd/hub',
+            desired_capabilities=desired_caps)
 
     def test_selenium_version(self):
         self.driver.get('https://www.google.com/')
@@ -35,4 +38,8 @@ class SearchVersion(unittest.TestCase):
         self.driver.close()
 
 if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+    if len(sys.argv) > 1:
+        SearchVersion.BROWSER = sys.argv.pop()
+        SearchVersion.PLATFORM = sys.argv.pop()
+    unittest.main(verbosity=2)
+

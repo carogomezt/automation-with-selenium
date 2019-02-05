@@ -10,7 +10,7 @@ class SearchVersion(unittest.TestCase):
 
     def setUp(self):
         options = webdriver.FirefoxOptions()
-        # options.add_argument('--headless')
+        options.add_argument('--headless')
         options.set_preference('dom.webnotifications.enabled', False)
         self.driver = webdriver.Firefox(options=options)
 
