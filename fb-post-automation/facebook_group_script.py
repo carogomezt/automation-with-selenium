@@ -5,6 +5,7 @@ Script that uses Selenium to automate the post on facebook groups
 import os
 from time import sleep
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,8 +17,8 @@ def driver_initialize(url):
 
     :param url: URL to load once the driver starts
     """
-    options = webdriver.FirefoxOptions()
-    # options.add_argument('--headless')
+    options = Options()
+    # options.headless = True
     options.set_preference('dom.webnotifications.enabled', False)
     driver = webdriver.Firefox(options=options)
     driver.get(url)
@@ -32,6 +33,7 @@ def login_fb(driver, user, password):
     :param user: Facebook username
     :param password: Facebook password
     """
+    print('Logging on Facebook')
     elem = driver.find_element_by_id('email')
     elem.send_keys(user)
     elem = driver.find_element_by_id('pass')
@@ -49,6 +51,7 @@ def post_fb_group(message, group_links):
     """
     user = os.environ['FB_USR']
     password = os.environ['FB_PWD']
+    print('Open Facebook page')
     driver = driver_initialize('https://www.facebook.com/')
     login_fb(driver, user, password)
     for group in group_links:
@@ -58,15 +61,16 @@ def post_fb_group(message, group_links):
         WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
         post_box = driver.find_element_by_xpath(xpath)
-        # Enter the text we want to post to Facebook
+        print('Enter the text we want to post to Facebook')
         post_box.send_keys(message)
         sleep(10)
-        # Get the 'Post' button and click on it
+        print('Get the "Post" button and click on it')
         submit_button_xpath = '//*[@data-testid="react-composer-post-button"]'
         WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.XPATH, submit_button_xpath)))
         post_button = driver.find_element_by_xpath(submit_button_xpath)
         post_button.click()
+        print('Post published')
         sleep(5)
     driver.close()
 

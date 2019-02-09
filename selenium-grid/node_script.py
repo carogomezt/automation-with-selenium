@@ -32,6 +32,7 @@ class SearchVersion(unittest.TestCase):
             'package-header__name')
         print(package_name.text)
         package_version = package_name.text.split(' ')[1]
+        time.sleep(3)
         self.assertEqual(package_version, '3.141.0')
 
     def tearDown(self):
